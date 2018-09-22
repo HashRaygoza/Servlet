@@ -5,14 +5,29 @@
  */
 package mx.com.hash.servlet;
 
+import java.io.IOException;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author david
  */
 @WebServlet("/mayusculas")
-public class Servlet extends HttpServlet{    
+public class Servlet extends HttpServlet{
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String palabra = request.getParameter("palabra");
+        
+        String resultado = palabra.toUpperCase();
+        
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(resultado);
+    }
     
 }
