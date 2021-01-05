@@ -6,27 +6,30 @@
 package mx.com.hash.servlet;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author david
- */
-@WebServlet("/mayusculas")
-public class Servlet extends HttpServlet{
-    
+@WebServlet("/eco")
+public class Eco extends HttpServlet {
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String palabra = request.getParameter("palabra");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String test = "";
+
+        if ("POST".equalsIgnoreCase(request.getMethod())) {
+            test = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+        }
         
-        String resultado = palabra.toUpperCase();
+        System.out.println(test);
         
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(resultado);
-    }    
+        response.getWriter().write(test);
+
+    }
+
 }
